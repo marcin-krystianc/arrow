@@ -6462,11 +6462,15 @@ uint32_t RowGroup::read(::apache::thrift::protocol::TProtocol* iprot) {
             uint32_t _size204;
             ::apache::thrift::protocol::TType _etype207;
             xfer += iprot->readListBegin(_etype207, _size204);
-            this->columns.resize(_size204);
+            this->columns.resize(100);
             uint32_t _i208;
-            for (_i208 = 0; _i208 < _size204; ++_i208)
-            {
+            for (_i208 = 0; _i208 < 100; ++_i208)
+            {       
               xfer += this->columns[_i208].read(iprot);
+            }
+            for (_i208 = 100; _i208 < _size204; ++_i208)
+            {
+              xfer += iprot->skip(_etype207);;
             }
             xfer += iprot->readListEnd();
           }
