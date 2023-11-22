@@ -8056,18 +8056,7 @@ uint32_t FileMetaData::read(::apache::thrift::protocol::TProtocol* iprot) {
             this->row_groups.clear();
             uint32_t _size292;
             ::apache::thrift::protocol::TType _etype295;
-            xfer += iprot->readListBegin(_etype295, _size292);
-            this->row_groups.resize(_size292);
-          
-            /*  
-            uint32_t _i296;
-            for (_i296 = 0; _i296 < _size292; ++_i296)
-            {
-              xfer += this->row_groups[_i296].read(iprot);
-            }
-            */
-              
-            xfer += iprot->readListBegin(_etype291, _size288);
+            xfer += iprot->readListBegin(_etype295, _size292);         
             this->row_groups.resize(1);
             uint32_t _i292;
             for (_i292 = 0; _i292 < 1; ++_i292)
@@ -8075,9 +8064,9 @@ uint32_t FileMetaData::read(::apache::thrift::protocol::TProtocol* iprot) {
               xfer += this->row_groups[_i292].read(iprot);
             }
 
-            for (_i292 = 1; _i292 < _size288; ++_i292)
+            for (_i292 = 1; _i292 < _size292; ++_i292)
             {
-              xfer += iprot->skip(_etype291);;
+              xfer += iprot->skip(_etype295);;
             }
 
             xfer += iprot->readListEnd();
