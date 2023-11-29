@@ -605,6 +605,15 @@ cdef class RowGroupMetaData(_Weakrefable):
         """Total byte size of all the uncompressed column data in this row group (int)."""
         return self.metadata.total_byte_size()
 
+def reconstruct_filemetadata(Buffer serialized):
+    cdef:
+        FileMetaData metadata = FileMetaData.__new__(FileMetaData)
+        CBuffer *buffer = serialized.buffer.get()
+        uint32_t metadata_len = <uint32_t>buffer.size()
+
+    metadata.init(CFileMetaData_Make(buffer.data(), &metadata_len))
+
+    return metadata
 
 def _reconstruct_filemetadata(Buffer serialized):
     cdef:
