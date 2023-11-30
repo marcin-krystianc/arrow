@@ -712,6 +712,11 @@ cdef class FileMetaData(_Weakrefable):
         return self._metadata.size()
 
     @property
+    def subset(self):
+        """Subset """
+        return self._metadata.size()
+
+    @property
     def num_columns(self):
         """Number of columns in file (int)."""
         return self._metadata.num_columns()
