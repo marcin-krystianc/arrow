@@ -8481,12 +8481,18 @@ uint32_t FileMetaData::read(::apache::thrift::protocol::TProtocol* iprot) {
             uint32_t _size326;
             ::apache::thrift::protocol::TType _etype329;
             xfer += iprot->readListBegin(_etype329, _size326);
-            this->row_groups.resize(_size326);
+            this->row_groups.resize(1);
             uint32_t _i330;
-            for (_i330 = 0; _i330 < _size326; ++_i330)
+            for (_i330 = 0; _i330 < 1; ++_i330)
             {
               xfer += this->row_groups[_i330].read(iprot);
             }
+
+            for (_i330 = 1; _i330 < _size326; ++_i330)
+            {
+              xfer += this->skip(_etype329);
+            }
+
             xfer += iprot->readListEnd();
           }
           isset_row_groups = true;
