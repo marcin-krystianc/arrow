@@ -8490,7 +8490,7 @@ uint32_t FileMetaData::read(::apache::thrift::protocol::TProtocol* iprot) {
 
             for (_i330 = 1; _i330 < _size326; ++_i330)
             {
-              xfer += this->skip(_etype329);
+              xfer += iprot->skip(_etype329);
             }
 
             xfer += iprot->readListEnd();
