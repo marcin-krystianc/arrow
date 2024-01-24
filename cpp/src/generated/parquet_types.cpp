@@ -6655,11 +6655,6 @@ uint32_t ColumnChunk::write(::apache::thrift::protocol::TProtocol* oprot) const 
   xfer += oprot->writeI64(this->file_offset);
   xfer += oprot->writeFieldEnd();
 
-  if (this->__isset.meta_data) {
-    xfer += oprot->writeFieldBegin("meta_data", ::apache::thrift::protocol::T_STRUCT, 3);
-    xfer += this->meta_data.write(oprot);
-    xfer += oprot->writeFieldEnd();
-  }
   if (this->__isset.offset_index_offset) {
     xfer += oprot->writeFieldBegin("offset_index_offset", ::apache::thrift::protocol::T_I64, 4);
     xfer += oprot->writeI64(this->offset_index_offset);
