@@ -3171,11 +3171,11 @@ class ColumnChunk : public virtual ::apache::thrift::TBase {
   /**
    * Crypto metadata of encrypted columns *
    */
-  ColumnCryptoMetaData crypto_metadata;
+  std::unique_ptr<ColumnCryptoMetaData> crypto_metadata;
   /**
    * Encrypted column metadata for this chunk *
    */
-  std::string encrypted_column_metadata;
+  std::unique_ptr<std::string> encrypted_column_metadata;
 
   _ColumnChunk__isset __isset;
 
