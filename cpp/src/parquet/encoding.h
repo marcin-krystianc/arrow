@@ -410,12 +410,30 @@ class BooleanDecoder : virtual public TypedDecoder<BooleanType> {
 
 class FLBADecoder : virtual public TypedDecoder<FLBAType> {
  public:
+  using TypedDecoder<FLBAType>::Decode;
   using TypedDecoder<FLBAType>::DecodeSpaced;
 
-  // TODO(wesm): As possible follow-up to PARQUET-1508, we should examine if
-  // there is value in adding specialized read methods for
-  // FIXED_LEN_BYTE_ARRAY. If only Decimal data can occur with this data type
-  // then perhaps not
+  /// \brief Decode up to `max_values` values into a contiguous, densely packed
+  /// byte buffer holding `max_values * descr->type_length()` bytes.
+  ///
+  /// Unlike Decode(FixedLenByteArray*, int), which writes one pointer per value,
+  /// this writes the raw fixed-width values back to back, with no per-value
+  /// pointers and no gaps. The caller owns `buffer` and must size it to at least
+  /// `max_values * descr->type_length()` bytes. Useful when the caller only needs
+  /// the raw fixed-width bytes (e.g. float16, fixed-size decimals) and wants to
+  /// avoid materializing FixedLenByteArray pointers or an intermediate Arrow
+  /// allocation.
+  ///
+  /// This method is for columns without nulls: only values are written, with no
+  /// spacing for null slots. The return value is the number of values decoded,
+  /// bounded by the values remaining in the current data page.
+  ///
+  /// The default implementation throws. Each FLBA encoding overrides it. This
+  /// mirrors BooleanDecoder::Decode(uint8_t*, int), which similarly adds a
+  /// packed-output overload for a specific physical type.
+  ///
+  /// \note API EXPERIMENTAL
+  virtual int Decode(uint8_t* buffer, int max_values);
 };
 
 PARQUET_EXPORT
